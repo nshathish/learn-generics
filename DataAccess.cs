@@ -20,11 +20,15 @@
         IQueryable<T> FindAll();
     }
 
-    public interface IRepository<T> : IReadonlyRepository<T>, IDisposable
+    public interface IWriteonlyRepository<in T>
     {
         void Add(T entity);
         void Delete(T entity);
         int Commit();
+    }
+
+    public interface IRepository<T> : IReadonlyRepository<T>, IWriteonlyRepository<T>, IDisposable
+    {   
     }
 
     public class SqlRepository<T>: IRepository<T> where T: class, IEntity

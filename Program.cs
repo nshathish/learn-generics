@@ -14,12 +14,13 @@ namespace Generics
 
             using var repo = new SqlRepository<Employee>(context);
             AddEmployees(repo);
+            AddManagers(repo);
             CountEmployees(repo);
             QueryEmployees(repo);
             DumpPeople(repo);
         }
         
-        private static void AddEmployees(SqlRepository<Employee> repo)
+        private static void AddEmployees(IRepository<Employee> repo)
         {
             repo.Add(new Employee { Name = "Scott" });
             repo.Add(new Employee { Name = "Nichols" });
@@ -27,12 +28,18 @@ namespace Generics
             Console.WriteLine($"{result} employees added");
         }
 
-        private static void CountEmployees(SqlRepository<Employee> repo)
+        private static void AddManagers(IWriteonlyRepository<Manager> repo)
+        {
+            repo.Add(new Manager{Name =  "James Denton"});
+            repo.Commit();
+        }
+
+        private static void CountEmployees(IRepository<Employee> repo)
         {
             Console.WriteLine($"Employee count: {repo.FindAll().Count()}");
         }
 
-        private static void QueryEmployees(SqlRepository<Employee> repo)
+        private static void QueryEmployees(IRepository<Employee> repo)
         {
             var employee = repo.FindById(1);
             Console.WriteLine($"Name: {employee.Name}");
@@ -40,7 +47,9 @@ namespace Generics
 
         private static void DumpPeople(IReadonlyRepository<Person> repo)
         {
-            throw new NotImplementedException();
+            var employees = repo.FindAll();
+            foreach (var employee in employees)
+                Console.WriteLine($"Name: {employee.Name}- Position: {employee.Type}");
         }
 
     }
