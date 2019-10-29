@@ -16,6 +16,7 @@ namespace Generics
             AddEmployees(repo);
             CountEmployees(repo);
             QueryEmployees(repo);
+            DumpPeople(repo);
         }
         
         private static void AddEmployees(SqlRepository<Employee> repo)
@@ -37,6 +38,10 @@ namespace Generics
             Console.WriteLine($"Name: {employee.Name}");
         }
 
+        private static void DumpPeople(IReadonlyRepository<Person> repo)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

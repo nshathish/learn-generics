@@ -14,12 +14,16 @@
         }
     }
 
-    public interface IRepository<T> : IDisposable
+    public interface IReadonlyRepository<out T>
+    {
+        T FindById(int id);
+        IQueryable<T> FindAll();
+    }
+
+    public interface IRepository<T> : IReadonlyRepository<T>, IDisposable
     {
         void Add(T entity);
         void Delete(T entity);
-        T FindById(int id);
-        IQueryable<T> FindAll();
         int Commit();
     }
 
