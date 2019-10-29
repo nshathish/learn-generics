@@ -23,7 +23,7 @@
         int Commit();
     }
 
-    public class SqlRepository<T>: IRepository<T> where T: class
+    public class SqlRepository<T>: IRepository<T> where T: class, IEntity
     {
         private readonly DbContext _context;
         private readonly DbSet<T> _set;
@@ -38,7 +38,11 @@
         public void Dispose() => _context.Dispose();
 
 
-        public void Add(T entity) => _set.Add(entity);
+        public void Add(T entity)
+        {
+            if (entity.IsValid())
+                _set.Add(entity);
+        }
 
         public void Delete(T entity) => _set.Remove(entity);
 

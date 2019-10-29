@@ -15,8 +15,9 @@ namespace Generics
             using var repo = new SqlRepository<Employee>(context);
             AddEmployees(repo);
             CountEmployees(repo);
+            QueryEmployees(repo);
         }
-
+        
         private static void AddEmployees(SqlRepository<Employee> repo)
         {
             repo.Add(new Employee { Name = "Scott" });
@@ -30,6 +31,12 @@ namespace Generics
             Console.WriteLine($"Employee count: {repo.FindAll().Count()}");
         }
 
-        
+        private static void QueryEmployees(SqlRepository<Employee> repo)
+        {
+            var employee = repo.FindById(1);
+            Console.WriteLine($"Name: {employee.Name}");
+        }
+
+
     }
 }
