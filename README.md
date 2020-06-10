@@ -23,3 +23,5 @@
 ![Constraint Order](constraint-order.png)
 
 *if any parameter has multiple constraints, they must be in this order*
+
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/creating-variant-generic-interfaces
